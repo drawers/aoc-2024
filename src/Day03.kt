@@ -22,34 +22,20 @@ fun main() {
     }
 
     fun ArrayDeque<Char>.unwindDoOp(): Boolean? {
-        val last = removeLastOrNull() ?: return null
+        val last = lastOrNull() ?: return null
         if (last == '(') {
-            val lastLast = lastOrNull() ?: return null
-            if (lastLast == 'o') {
-                removeLast() // Remove the 'o'.
-                val d = removeLastOrNull() ?: return null
-                if (d == 'd') return true else {
-                    clear()
-                    return null
-                }
-            } else if (lastLast == 't') {
-                removeLast() // Remove the 't'.
-                val apostrophe = removeLastOrNull() ?: return null
-                val n = removeLastOrNull() ?: return null
-                val o = removeLastOrNull() ?: return null
-                val d = removeLastOrNull() ?: return null
-                if (apostrophe == '\'' && n == 'n' && o == 'o' && d == 'd') return false else {
-                    clear()
-                    return null
-                }
+            if (dropLast(1).takeLast(2) == listOf('d', 'o')) {
+                clear()
+                return true
+            } else if (dropLast(1).takeLast(5) == listOf('d', 'o', 'n', '\'', 't')) {
+                clear()
+                return false
             } else {
                 return null
             }
-        } else {
-            // Restore the char we removed hoping it would be '('.
-            addLast(last)
-            return null
         }
+
+        return null
     }
 
     fun ArrayDeque<Char>.unwindMul(): Unit? {
