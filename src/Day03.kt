@@ -62,6 +62,7 @@ fun main() {
                             enabled = true
                         } else if (doOp == false) {
                             enabled = false
+                            continue
                         }
                     }
 
